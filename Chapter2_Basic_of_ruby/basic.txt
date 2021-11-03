@@ -1,0 +1,16 @@
+「Rubyすべてがオブジェクト」
+
+様々なオブジェクトに対してメソッドを呼び出す。オブジェクトの形式によって使用できるメソッドに違いがある（文字列、nunber、真偽値など）
+例）
+オブジェクト.メソッド（引数１,引数２,引数３）
+
+識別子 : 変数やメソッド、クラスに用いられる名前
+予約語 : 以下のもの。予約ごと同名のものを識別子として使うことはできない。
+
+BEGIN    class    ensure   nil      self     when
+END      def      false    not      super    while
+alias    defined? for      or       then     yield
+and      do       if       redo     true     __LINE__
+begin    else     in       rescue   undef    __FILE__
+break    elsif    module   retry    unless   __ENCODING__
+case     end      next     return   until
