@@ -19,4 +19,3 @@ else
 end
  #=> ciao
 
-#  他にもifと逆のunless文やcase/when文などがある。
