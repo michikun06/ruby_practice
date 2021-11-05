@@ -37,4 +37,23 @@ puts a == b                            #=> false
 
 s = "合".encode("EUC-JP")
 puts s + "\u{4f53}".encode("EUC-JP")   #=> "合体"
-puts s + "\u{4f53}"                    #=> Encoding::CompatibilityError
+
+# 文字列はすべてStringクラスのオブジェクト
+puts "abc".class
+
+# 「%q! !」はシングルクォート、「%Q! !」「%! !」はダブルクォートで囲ったものと同義
+puts %q!He said "Hello!"!
+
+# ヒアドキュメント : ""内で改行されているものは、改行しているとみなして扱われる
+puts "こんにちは！
+川路です。"
+## 上記のように改行できるがヒアドキュメント(<<)を買うことが一般的
+name = "川路"
+a = <<TEXT
+こんにちは！#{name}さん！
+以下のメッセージをご覧ください。
+TEXT
+puts a
+
+# フォーマットを指定して文字列を作成する(sprintfメソッド)
+puts sprintf('%1.3f', 1.2)
