@@ -36,3 +36,28 @@ p e.eql?(f)     #=>false  ハッシュ値が異なる
 
 
 # === : 比較元（左側）のクラス（String、Integerなど）によって異なる挙動を示す。
+
+
+# モンキーパッチ  :  既存のメソッドを上書きして、自分が期待する挙動に変更すること。
+class User2
+    def initialize(name)
+        @name = name
+    end
+
+    def hello
+        "Hello,#{@name}!"
+    end
+end
+
+user2 = User2.new('Alice')
+p user2.hello     #=>"Hello,Alice!"
+
+class User2
+
+    alias hello_original hello     # hello_originalをhelloメソッドのエイリアスとして作成
+
+    def hello
+        "#{hello_original}じゃなくて、#{@name}さん、こんにちは！"
+    end
+end
+p user2.hello     #=>"Hello,Alice!じゃなくて、Aliceさん、こんにちは！"   helloメソッドにモンキーパッチを当てたため、挙動が変わった。
