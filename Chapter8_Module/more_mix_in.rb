@@ -89,3 +89,55 @@ p t_120 == t_180     #=>false
 
 # Kernelモジュール  :  p、puts、loopなどのメソッドはが定義されているモジュール。
 # 事実上、最上位にいるObjectクラスがKernelモジュールをincludeしているため、RubyではどこでもKernelモジュールのメソッドを使用することができる。
+
+
+# Rubyの起動直後、selfはObjectクラスにいる
+# クラス内部ではselfはそにクラスになる
+p self     #=>main
+p self.class     #=>Object
+class User
+    p self     #=>User
+    p self.class     #=>Class
+end
+
+
+# モジュールとインスタンス変数について
+# モジュール内で定義したメソッド内でインスタンス変数を読み書きすると、インクルード先の区たすのインスタンス変数を読み書きしたことと、同じになる
+module NameChanger
+    def change_name
+        @name = 'ありす'
+    end
+end
+
+class User2
+    include NameChanger
+
+    attr_reader :name
+
+    def initialize(name)
+        @name = name
+    end
+end
+
+user2 = User2.new('alice')
+p user2.name     #=>"alice"
+user2.change_name     #=>モジュール内のメソッドにてインスタンス変数を書き換え
+p user2.name     #=>"ありす"
+
+
+# オブジェクトに直接ミックスインすることも可能
+
+module Loggable3
+    def log(text)
+        puts "[LOG]#{text}"
+    end
+end
+
+string = 'abc'
+
+# 通常stringはStringクラスに属しており、logメソッドを持ち合わせていないためエラーとなる
+# string.log     #=>more_mix_in.rb:138:in `<main>': undefined method `log' for "abc":String (NoMethodError)
+
+string.extend(Loggable3)
+
+string.log('Hello')     #=>[LOG]Hello   stringオブジェクトにLoggable3モジュールをextendしたため、特異メソッドとしてlogメソッドが使えるようになった。
